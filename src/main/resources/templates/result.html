@@ -7,9 +7,12 @@
 <body>
 <h2 th:text="${title}"></h2>
 <ul>
-    <li th:text="${username}"></li>
-    <li th:text="${password}"></li>
-    <li th:text="${email}"></li>
+    <li th:text="${user.name}"></li>
+    <li th:text="${user.surname}"></li>
+    <li th:text="${user.username}"></li>
+    <li th:text="${user.password}"></li>
+    <li th:text="${user.email}"></li>
+    <li th:text="${user.id}"></li>
 </ul>
 </body>
 </html>
