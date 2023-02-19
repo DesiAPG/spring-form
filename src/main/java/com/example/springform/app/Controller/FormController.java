@@ -20,7 +20,7 @@ public class FormController {
         User user = new User();
         user.setName("Duvitas");
         user.setSurname("Marin");
-        user.setId("123.523.615-H");
+        user.setId("1");
         model.addAttribute("user", user);
         model.addAttribute("title", "Sign in");
         return "form";
