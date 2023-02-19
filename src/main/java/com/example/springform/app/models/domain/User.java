@@ -1,25 +1,37 @@
 package com.example.springform.app.models.domain;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
+import com.example.springform.app.validation.RegexIdentificator;
+import jakarta.validation.constraints.*;
 
 public class User {
 
+    @RegexIdentificator()
     private String id;
-    @NotEmpty
+    @NotBlank
     @Size(min = 3, max = 10)
     private String username;
     @NotEmpty
     @Email
     private String email;
+
+    @NotNull
+    @Min(5)
+    @Max(100)
+    private Integer account;
     @NotEmpty
     private String password;
     @NotEmpty
     private String name;
     @NotEmpty
     private String surname;
+
+    public Integer getAccount() {
+        return account;
+    }
+
+    public void setAccount(Integer account) {
+        this.account = account;
+    }
 
     public String getId() {
         return id;
