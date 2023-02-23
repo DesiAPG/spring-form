@@ -3,7 +3,6 @@ package com.example.springform.app.validation;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-import java.lang.annotation.Annotation;
 
 public class RegexIdValidator implements ConstraintValidator<RegexIdentificator, String> {
     @Override
