@@ -2,6 +2,9 @@ package com.example.springform.app.models.domain;
 
 import com.example.springform.app.validation.RegexIdentificator;
 import jakarta.validation.constraints.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 public class User {
 
@@ -14,6 +17,8 @@ public class User {
     @Email
     private String email;
 
+
+    private Date birthDate;
     @NotNull
     @Min(5)
     @Max(100)
@@ -24,6 +29,14 @@ public class User {
     private String name;
     @NotEmpty
     private String surname;
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
 
     public Integer getAccount() {
         return account;
