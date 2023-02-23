@@ -1,5 +1,6 @@
 package com.example.springform.app.Controller;
 
+import com.example.springform.app.editors.NameEditor;
 import com.example.springform.app.models.domain.User;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ public class FormController {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, "birtDate", new CustomDateEditor(dateFormat, false));
+        binder.registerCustomEditor(String.class, "name", new NameEditor());
     }
 
     @GetMapping("/form")
