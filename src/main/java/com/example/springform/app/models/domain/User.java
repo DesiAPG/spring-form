@@ -16,8 +16,8 @@ public class User {
     @NotEmpty
     @Email
     private String email;
-
-
+    @NotEmpty
+    private String country;
     private Date birthDate;
     @NotNull
     @Min(5)
@@ -29,6 +29,14 @@ public class User {
     private String name;
     @NotEmpty
     private String surname;
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
     public Date getBirthDate() {
         return birthDate;
