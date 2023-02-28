@@ -8,6 +8,16 @@
 <h2 th:text="${title}"></h2>
 <form th:action="@{/form}" th:object="${user}" method="post">
     <div>
+        <label for="country">Country</label>
+        <div>
+            <select id="country" th:field="*{country}">
+                <option value="">--Select--</option>
+                <option th:each="country: ${countries}" th:text="${country}"></option>
+            </select>
+        </div>
+        <div th:if="${#fields.hasErrors('country')}" th:errors="*{country}"></div>
+    </div>
+    <div>
         <label for="name">Name</label>
         <div>
             <input type="text" id="name" th:field="*{name}">
