@@ -1,6 +1,7 @@
 package com.example.springform.app.Controller;
 
 import com.example.springform.app.editors.NameEditor;
+import com.example.springform.app.models.domain.Country;
 import com.example.springform.app.models.domain.User;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 @Controller
@@ -30,9 +29,34 @@ public class FormController {
         binder.registerCustomEditor(String.class, "name", new NameEditor());
     }
 
-    @ModelAttribute("countries")
+    @ModelAttribute("country")
     public List<String> countries() {
         return Arrays.asList("Spain", "Mexico", "Chile", "Argentina", "Peru", "Colombia", "Venezuela");
+    }
+
+    @ModelAttribute("countryList")
+    public List<Country> countryList() {
+        return Arrays.asList(
+                new Country(1, "ES", "Spain"),
+                new Country(2, "MX", "Mexico"),
+                new Country(3, "CL", "Chile"),
+                new Country(4, "AR", "Argentina"),
+                new Country(5, "PE", "Peru"),
+                new Country(6, "CO", "Colombia"),
+                new Country(7, "VE", "Venezuela"));
+    }
+
+    @ModelAttribute("countryMap")
+    public Map<String, String> countriesMap() {
+        Map<String, String> countries = new HashMap<String, String>();
+        countries.put("ES", "Spain");
+        countries.put("MX", "Mexico");
+        countries.put("CL", "Chile");
+        countries.put("AR", "Argentina");
+        countries.put("PE", "Peru");
+        countries.put("CO", "Colombia");
+        countries.put("VE", "Venezuela");
+        return countries;
     }
 
     @GetMapping("/form")
