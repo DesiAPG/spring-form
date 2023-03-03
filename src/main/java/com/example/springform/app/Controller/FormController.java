@@ -1,8 +1,10 @@
 package com.example.springform.app.Controller;
 
+import com.example.springform.app.editors.CountryPropertyEditor;
 import com.example.springform.app.editors.NameEditor;
 import com.example.springform.app.models.domain.Country;
 import com.example.springform.app.models.domain.User;
+import com.example.springform.app.services.CountryService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -21,12 +23,19 @@ import java.util.*;
 @SessionAttributes("user")
 public class FormController {
 
+    @Autowired
+    private CountryService countryService;
+
+    @Autowired
+    private CountryPropertyEditor countryPropertyEditor;
+
     @InitBinder
     public void initBinder(WebDataBinder binder) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, "birtDate", new CustomDateEditor(dateFormat, false));
         binder.registerCustomEditor(String.class, "name", new NameEditor());
+        binder.registerCustomEditor(Country.class, "country", countryPropertyEditor);
     }
 
     @ModelAttribute("country")
@@ -36,14 +45,7 @@ public class FormController {
 
     @ModelAttribute("countryList")
     public List<Country> countryList() {
-        return Arrays.asList(
-                new Country(1, "ES", "Spain"),
-                new Country(2, "MX", "Mexico"),
-                new Country(3, "CL", "Chile"),
-                new Country(4, "AR", "Argentina"),
-                new Country(5, "PE", "Peru"),
-                new Country(6, "CO", "Colombia"),
-                new Country(7, "VE", "Venezuela"));
+        return countryService.listCountries();
     }
 
     @ModelAttribute("countryMap")
@@ -71,16 +73,22 @@ public class FormController {
     }
 
     @PostMapping("/form")
-    public String processForm(@Valid User user, BindingResult result, Model model, SessionStatus status) {
-        model.addAttribute("title", "Result of form");
+    public String processForm(@Valid User user, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
+            model.addAttribute("title", "Result of form");
             return "form";
         }
+        return "redirect:/result";
+    }
 
-        model.addAttribute("user", user);
+    @GetMapping("/result")
+    public String result(@SessionAttribute(name = "user", required = false) User user, Model model, SessionStatus status) {
+        if (user == null) {
+            return "redirect:/form";
+        }
+        model.addAttribute("title", "Result of form");
         status.setComplete();
         return "result";
     }
-
 }
