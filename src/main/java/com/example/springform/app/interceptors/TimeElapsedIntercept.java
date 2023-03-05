@@ -17,6 +17,11 @@ public class TimeElapsedIntercept implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
+        if (request.getMethod().equalsIgnoreCase("post")) {
+            return true;
+        }
+
         logger.info("TimerIntercept : preHandle() entry");
         long initTime = System.currentTimeMillis();
         request.setAttribute("initTime", initTime);
@@ -28,6 +33,9 @@ public class TimeElapsedIntercept implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        if (request.getMethod().equalsIgnoreCase("post")) {
+            return;
+        }
         long finishTime = System.currentTimeMillis();
         long initTime = (Long) request.getAttribute("initTime");
         long timeElapsed = finishTime - initTime;
